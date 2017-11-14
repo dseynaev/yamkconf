@@ -1,0 +1,27 @@
+# include adds configuration properties to the Makefile
+
+# %INCLUDE some_folder/config.yaml
+---
+# include another yaml document to allow remote references
+%INCLUDE some_folder/config.yaml
+example:
+    b: $(config.a)  # resolved at build time (default make behaviour)
+    d: *x           # yaml reference (resolved at configuration time)
+...
+
+all: $(example.d)
+
+$(exmaple.d):
+    touch $(example.d)
+
+clean:
+    -rm $(example.a)
+    -rm $(example.d)
+
+---
+example2:
+    x: $(shell echo "ls")
+...
+
+example2:
+    $(example2.x)

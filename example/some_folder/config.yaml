@@ -1,0 +1,5 @@
+---
+config:
+    a: something.txt
+    c: &x x.txt
+...
